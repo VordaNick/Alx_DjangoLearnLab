@@ -20,4 +20,4 @@ class LibraryBooks(DetailView):
         return Book.objects.filter(library_name=library_name)
     
 from .views import list_books
-LibraryDetailView
+"LibraryDetailView"
