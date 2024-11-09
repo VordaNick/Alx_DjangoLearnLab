@@ -1,3 +1,4 @@
+Author = Author.objects.get(name=author_name)
 Books = Author.objects.filter(author=author)
 print(Books)
 
