@@ -2,7 +2,6 @@ from django.shortcuts import render
 from .models import Book
 from .models import Library
 from django.views.generic.detail import DetailView
-from .views import list_books, LibraryDetailView
 # Create your views here.
 def database_books(request):
     book = Book.objects.all()
@@ -19,5 +18,3 @@ class LibraryBooks(DetailView):
         library = self.kwargs['library_name']
         return Book.objects.filter(library_name=library_name)
     
-from .views import list_books
-"LibraryDetailView"
