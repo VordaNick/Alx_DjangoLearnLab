@@ -18,3 +18,6 @@ class LibraryBooks(DetailView):
     def library_name(self):
         library = self.kwargs['library_name']
         return Book.objects.filter(library_name=library_name)
+    
+from .views import list_books
+LibraryDetailView
