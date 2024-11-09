@@ -7,7 +7,7 @@ def database_books(request):
     context = {
         'books' : books,
     }
-    return(render, 'list_books.html', context)
+    return(render, 'relationship_app/list_books.html', context)
 
 class LibraryBooks(ListView):
     model = Book
