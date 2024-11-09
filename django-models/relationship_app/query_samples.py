@@ -6,6 +6,6 @@ Library = Library.objects.get(name=library_name)
 Books = library.books.all()
 print(Books)
 
-Librarian = library.objects.get(name=library_name)
+Librarian = Librarian.objects.get(library=library_name)
 Librarian = library.librarian
 print(Librarian)
