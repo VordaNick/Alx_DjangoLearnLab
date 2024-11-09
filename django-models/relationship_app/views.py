@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .models import Book, Library
+from .models import Book
+from .models import Library
 from django.views.generic import ListView
 # Create your views here.
 def database_books(request):
@@ -11,7 +12,7 @@ def database_books(request):
 
 class LibraryBooks(ListView):
     model = Book
-    template_name = 'library_detail.html'
+    template_name = 'relationship_app/library_detail.html'
     context_object_name = 'books'
     def library_name(self):
         library = self.kwargs['library_name']
