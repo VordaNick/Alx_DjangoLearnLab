@@ -4,7 +4,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 permission_required('bookshelf.can_view', raise_exception=True)
-def view_book(request):
+def view_book_list(request):
     return HttpResponse("You have permission to view Book.")
 permission_required('bookshelf.can_create', raise_exception=True)
 def create_book(request):
