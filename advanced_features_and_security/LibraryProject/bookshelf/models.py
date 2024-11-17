@@ -19,4 +19,12 @@ class CustomUserManager(BaseUserManager):
         return
     def create_superuser(self, email, password=None,):
         return
+    
+class Meta:
+    permissions = [
+        ("can_view", "Can view Book"),
+        ("can_create", "Can create Book"),
+        ("can_edit", "Can edit Book"),
+        ("can_delete", "Can delete Book"),
+    ]
         
