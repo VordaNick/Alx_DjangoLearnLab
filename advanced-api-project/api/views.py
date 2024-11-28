@@ -3,9 +3,9 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 from .models import Book
 from django.urls import reverse_lazy
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAuthenticated
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.generics import ListAPIView
+from rest_framework import generics
 from .serializers import BookSerializer
 from .filters import BookFilter
 
