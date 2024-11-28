@@ -2,32 +2,32 @@ from django.shortcuts import render
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .models import Book
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 # Create your views here.
-class BookListView(ListView):
+class BookListView(IsAuthenticatedOrReadOnly,ListView):
     model = Book
     template_name = 'List.html'
     context_object_name = 'books'
     
-class BookDetailView(DetailView):
+class BookDetailView(IsAuthenticatedOrReadOnly,DetailView):
     model = Book
     template_name = 'Detail.html'
     context_object_name = 'book'
     
-class BookCreateView(LoginRequiredMixin,CreateView):
+class BookCreateView(IsAuthenticated,CreateView):
     model = Book
     template_name = 'Form.html'
     fields = ['title', 'publication_year', 'author']
     success_url = reverse_lazy('List')
 
-class BookUpdateView(LoginRequiredMixin,UpdateView):
+class BookUpdateView(IsAuthenticated,UpdateView):
     model = Book
     template_name = 'Form.html'
     fields = ['title', 'publication_year', 'author']
     success_url = reverse_lazy('List')
     
-class BookDeleteView(LoginRequiredMixin,DeleteView):
+class BookDeleteView(IsAuthenticated,DeleteView):
     model = Book
     template_name = 'Delete.html'
     success_url = reverse_lazy('List')
