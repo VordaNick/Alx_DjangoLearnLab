@@ -3,6 +3,11 @@ from django.views.generic import ListView,DetailView,CreateView,UpdateView,Delet
 from .models import Book
 from django.urls import reverse_lazy
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import ListAPIView
+from .serializers import BookSerializer
+from .filters import BookFilter
 
 # Create your views here.
 class BookListView(IsAuthenticatedOrReadOnly,ListView):
@@ -31,3 +36,13 @@ class BookDeleteView(IsAuthenticated,DeleteView):
     model = Book
     template_name = 'Delete.html'
     success_url = reverse_lazy('List')
+    
+class BookListApiView(ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    
+    filterset_class = BookFilter
+    search_fields = ['title', 'author']
+    ordering_fields =['title', 'publication_year']
+    ordering = ['title']
