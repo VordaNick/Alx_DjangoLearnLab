@@ -1,7 +1,37 @@
 <h1>{{ post.title }}</h1>
-<p> By {{ post.author}} on {{ post.date_posted }}</p>
 <p>{{ post.content }}</p>
+<p> By {{ post.author}} on {{ post.created_at }}</p>
 {% if user.is_authenticated and user == post.author %}
     <a href="{% url'post-edit' post.id %}">Edit</a>
     <a href="{%'post-delete' post.id%}">Delete</a>
 {% endif %}
+
+<hr>
+
+<h2>Comments</h2>
+<div>
+    {% for comment in comments %}
+
+<p>{{ comment.author }}:
+    {{ comment.content }}</p>
+    <p>Posted on {{ comment.created_at }}</p>
+    {% if comment.author == user %}
+        <a href="{% url 'comment_update' comment.pk%}">Edit</a>
+            <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+            {% endif %}
+            <hr>
+        {% endfor %}
+</div>
+
+<h2>Add a Comment</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Post Comment</button>
+</form>
+
+
+
+
+
+
