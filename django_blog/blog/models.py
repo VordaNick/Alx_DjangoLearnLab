@@ -9,7 +9,7 @@ class Post(models.Model):
     content = models.TextField()
     published_date = models.DateField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    tags = TaggableManager
+    
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -28,4 +28,5 @@ class Comment(models.Model):
         return f'Comment by {self.author} on {self.post}'
     
 class Tag(models.Model):
-    
+    name = models.CharField(max_length=50, unique=True)
+    tag = models.ManyToManyField(Post, related_name='tags')

@@ -26,7 +26,12 @@
 <h2>Add a Comment</h2>
 <a href="{% url 'comment_create' post.pk %}">Create a Comment</a>
 
-
+<p>Tags:</p>
+<ul>
+    {% for tag in post.tags.all %}
+        <li><a href="{% url 'tagged_posts' tag.name %}">{{ tag.name}}</a></li>
+    {% endfor %}
+</ul>
 
 
 

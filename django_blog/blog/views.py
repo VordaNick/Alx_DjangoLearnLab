@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import UserProfileForm
-from .models import Post, Comment
+from .models import Post, Comment, Tag
 from.forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
@@ -97,4 +97,14 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})
     def test_func(self):
         comment = self.get_object()
-        return self.request.user == comment.author    
+        return self.request.user == comment.author
+    
+class TaggedPostListView(ListView):
+    model = Post
+    template_name = 'blog/tagged_posts.html'
+    context_object_name = 'posts'
+    def get_queryset(self):
+        tag_name = self.kwargs.get('tag_name')
+        return Post.objects.filter(tags__name=tag_name)
+    
+    
