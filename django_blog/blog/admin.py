@@ -6,7 +6,7 @@ from .models import Post, Tag
 class TagAdmin(admin.ModelAdmin):
     list_display = ['name']
     search_fields = ['name']
-    filter_horizontal = ['tag']
+    filter_horizontal = ['tags']
     
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):

@@ -29,4 +29,4 @@ class Comment(models.Model):
     
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    tag = models.ManyToManyField(Post, related_name='tags')
+    tags = models.ManyToManyField(Post, related_name='tags')
