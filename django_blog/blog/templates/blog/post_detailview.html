@@ -24,11 +24,7 @@
 </div>
 
 <h2>Add a Comment</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ comment_form.as_p }}
-    <button type="submit">Post Comment</button>
-</form>
+<a href="{% url 'comment_create' post.pk %}">Create a Comment</a>
 
 
 
