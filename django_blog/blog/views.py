@@ -8,6 +8,7 @@ from .models import Post, Comment, Tag
 from.forms import CommentForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 
 # Create your views here.
@@ -107,4 +108,16 @@ class TaggedPostListView(ListView):
         tag_name = self.kwargs.get('tag_name')
         return Post.objects.filter(tags__name=tag_name)
     
+
+class PostSearchView(ListView):
+    model = Post
+    template_name = 'blog/post_search_results.html'
+    context_object_name = 'posts'
     
+    def get_queryset(self):
+        query = self.request.GET.get('q', '')
+        return Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct
