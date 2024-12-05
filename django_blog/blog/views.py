@@ -109,7 +109,7 @@ class TaggedPostListView(ListView):
         return Post.objects.filter(tags__name=tag_name)
     
 
-class PostSearchView(ListView):
+class PostByTagListView(ListView):
     model = Post
     template_name = 'blog/post_search_results.html'
     context_object_name = 'posts'
