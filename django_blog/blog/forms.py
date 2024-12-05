@@ -15,4 +15,9 @@ class TagForm(forms.ModelForm):
     class Meta:
         model = Tag
         fields = ['tags']
-    
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+ #TagWidgets()   
