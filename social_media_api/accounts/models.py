@@ -5,8 +5,9 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 
 # Create your models here.
-class UserManager(BaseUserManager):
-    def create_user(self, email, password):
+'''class UserManager(BaseUserManager):
+    def create_user(self, username, email, password=None, **extrafields):
+        extrafields.setdefault('is_active', True)
         if not email:
             raise ValueError('Email is required')
         if not password:
@@ -21,18 +22,18 @@ class UserManager(BaseUserManager):
         user.is_superuser=True
         user.is_admin=True
         user.save(using=self._db)
-        return user
+        return user'''
 
 class User(AbstractUser):
-    username = models.CharField(unique=True, max_length=15)
     email = models.EmailField(unique=True)
     bio = models.CharField(max_length=500,)
-    profile_picture = models.ImageField()
-    followers = models.ManyToManyField("self", symmetrical=False, related_name='following')
+    profile_picture = models.ImageField(blank=True)
+    followers = models.ManyToManyField("self", symmetrical=False, related_name='follow')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    following = models.ManyToManyField("self", symmetrical=False)
     
-    objects = UserManager()
+    #objects = UserManager()
     
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
