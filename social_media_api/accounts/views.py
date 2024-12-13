@@ -44,6 +44,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from .serializers import UserRegistrationSerializer, UserLoginSerializer
 from rest_framework import generics
+from rest_framework.authtoken.models import Token
 
 
    
@@ -54,8 +55,8 @@ class UserRegistrationView(APIView):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            
-            return Response(serializer.data)
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'Token': token.key, 'user_id': user.id, 'Bio': user.bio, 'Username': user.username})
         return Response(serializer.errors, status=400)
     
 class UserLoginView(APIView):
