@@ -48,7 +48,7 @@ class LikePostView(generics.GenericAPIView):
         except:
             Post.DoesNotExist
             return Response({'error': 'Post not found.'}, status=status.HTTP_404_NOT_FOUND)
-        like, created =Like.objects.get_or_create(post=post, user=request.user)
+        like, created = Like.objects.get_or_create(user=request.user, post=post)
         
         if not created:
             return Response({'error': 'You have already liked this post'}, status=status.HTTP_400_BAD_REQUEST) #when a user tries to like a post more than once
