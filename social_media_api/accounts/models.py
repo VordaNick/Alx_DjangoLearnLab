@@ -6,7 +6,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 # Create your models here.
 '''class UserManager(BaseUserManager):
-    def create_user(self, username, email, password=None, **extrafields):
+    def create_user(self, email, password=None, **extrafields):
         extrafields.setdefault('is_active', True)
         if not email:
             raise ValueError('Email is required')
@@ -24,7 +24,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
         user.save(using=self._db)
         return user'''
 
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     bio = models.CharField(max_length=500,)
     profile_picture = models.ImageField(blank=True)
@@ -44,7 +44,7 @@ class User(AbstractUser):
     
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     def __str__(self):
