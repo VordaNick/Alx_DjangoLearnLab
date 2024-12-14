@@ -6,6 +6,8 @@ from .serializers import PostSerializer, CommentSerializer
 from rest_framework.response import Response
 from.models import Post, Like
 from notifications.models import Notification
+from rest_framework.permissions import IsAuthenticated
+
 
 # Create your views here.
 class IsAuthorOrReadonly(permissions.BasePermission):
@@ -43,11 +45,7 @@ class LikePostView(generics.GenericAPIView):
     permission_classes =[permissions.IsAuthenticated]
     
     def post(self, request, pk):
-        try:
-            post = Post.objects.get(pk=pk)
-        except:
-            Post.DoesNotExist
-            return Response({'error': 'Post not found.'}, status=status.HTTP_404_NOT_FOUND)
+        post = generics.get_object_or_404(Post, pk=pk)
         like, created = Like.objects.get_or_create(user=request.user, post=post)
         
         if not created:
