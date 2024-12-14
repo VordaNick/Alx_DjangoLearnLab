@@ -25,6 +25,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
         return user'''
 
 class CustomUser(AbstractUser):
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     bio = models.CharField(max_length=500,)
     profile_picture = models.ImageField(blank=True)
@@ -35,7 +36,7 @@ class CustomUser(AbstractUser):
     
     #objects = UserManager()
     
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
     
     def __str__(self):
