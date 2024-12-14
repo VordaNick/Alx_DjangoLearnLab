@@ -29,10 +29,10 @@ class UserLoginSerializer(serializers.Serializer):
     token = serializers.CharField(read_only=True)
     
     def validate(self, data):
-        user = authenticate(email=data['email'], password=data['password'])
+        user = authenticate(username=data['email'], password=data['password'])
         if not user:
             raise serializers.ValidationError('Invalid Email or Password')
-        token, created = Token.objects.create(user=user)
+        token, created = Token.objects.get_or_create(user=user)
         return {'token': token.key}
     
 
