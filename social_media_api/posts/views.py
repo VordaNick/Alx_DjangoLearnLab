@@ -22,6 +22,8 @@ class PostViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly, '''IsAuthorOrReadonly''']
     
     def perform_create(self, serializer):
+        print("Validated data:", serializer.validated_data)
+        print("Request user:", self.request.user)
         serializer.save(author=self.request.user)
         
 class CommentViewSet(viewsets.ModelViewSet):

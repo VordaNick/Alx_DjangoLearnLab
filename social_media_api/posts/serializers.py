@@ -4,6 +4,9 @@ from .models import Post, Comment
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.StringRelatedField(read_only=True)
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    def to_representation(self, instance):
+        print("Serializing instance:", instance)
+        return super().to_representation(instance)
     class Meta:
         model = Post
         fields = ['id', 'author', 'title', 'content', 'created_at', 'updated_at', 'comments']
